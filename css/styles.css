@@ -1,0 +1,55 @@
+body {
+    font-family: Outfit, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.dashboard {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.speedometer, .lap-timer, .rpm-bar, .track-position {
+    margin: 20px 0;
+}
+
+.progress-container {
+    background-color: #333;
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    background-color: #4caf50;
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.track {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.vehicle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5722;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50);
+    left: 0;
+}

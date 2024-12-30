@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic HTML with CSS and JS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-dark text-white">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Telemetry Dashboard</h1>
+
+        <!--SpeedoMeter-->
+        <div class="card text-bg-secondary mb-3">
+            <div class="card-body text-center">
+                <h2 class="card-title">Speed</h2>
+                <p class="display-5" id="speed">0</p>
+                <p class="fs-5">km/h</p>
+            </div>
+        </div>
+
+        <!--Laptimer-->
+        <div class="card text-bg-secondary mb-3">
+            <div class="card-body text-center">
+                <h2 class="card-title">Lap Time</h2>
+                <p class="display-5" id="lap-time">00:00:00</p>
+            </div>
+        </div>
+
+        <!--RPM Bar-->
+        <div class="card text-bg-secondary mb-3">
+            <div class="card-body">
+                <h2 class="card-title">RPM</h2>
+                <div class="progress">
+                    <div id="rpm-progress" class="progress-bar progress-bar-striped progress-bar-animated progress-bar-custom" role="progressbar" style="width: 0"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--Track Position-->
+        <div class="card text-bg-secondary">
+            <div class="card-body">
+                <h2 class="card-title text-center">Track Position</h2>
+                <div class="track mt-3">
+                    <div id="vehicle" class="vehicle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
