@@ -1,3 +1,7 @@
+// Select SVG Elements
+const path = document.querySelector('#path4353');
+const vehicle = document.querySelector('#vehicle');
+
 // Simulate telemetry data
 let speed = 0;
 let rpm = 0;
@@ -13,7 +17,9 @@ function updateTelemetry() {
     // Update user interface
     document.getElementById('speed').textContent = speed;
     document.getElementById('rpm-progress').style.width = `${(rpm / 10000) * 100}%`;
-    document.getElementById('vehicle').style.left = `${trackPosition}%`;
+    
+    // Animate the Vehicle on Monza
+    animateVehicle(trackPosition / 100);
 }
 
 // Update lap timer
@@ -23,6 +29,16 @@ function updateLapTime() {
     const seconds = lapTime % 60;
     const milliseconds = lapTime % 100;
     document.getElementById('lap-time').textContent =  `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+}
+
+// Animate the vehicle along the track
+function animateVehicle(progress) {
+    const pathLength = path.getTotalLength();
+    const point = path.getPointAtLength(progress * pathLength);
+
+    // Update vehicle Position
+    vehicle.setAttribute('cx', point.x);
+    vehicle.setAttribute('cy', point.y);
 }
 
 // Start simulation
