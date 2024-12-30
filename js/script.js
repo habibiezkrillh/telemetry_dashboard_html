@@ -8,6 +8,7 @@ let rpm = 0;
 let lapTime = 0;
 let trackPosition = 0;
 let lapCounter = 0;
+let lapTimes = [];
 
 // Update data
 function updateTelemetry() {
@@ -26,16 +27,36 @@ function updateTelemetry() {
     if (trackPosition === 0) {
         lapCounter++;
         document.getElementById('lap-counter').textContent = lapCounter;
+
+        // Record lap time and reset lap timer
+        lapTimes.push(lapTime);
+        lapTime = 0;
+
+        // Calculate and display average lap time
+        const averageLapTime = calculateAverageLapTime();
+        document.getElementById('average-lap-time').textContent = formatTime(averageLapTime);
     }
 }
 
 // Update lap timer
 function updateLapTime() {
     lapTime++;
-    const minutes = Math.floor(lapTime / 60);
-    const seconds = lapTime % 60;
-    const milliseconds = lapTime % 100;
-    document.getElementById('lap-time').textContent =  `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+    document.getElementById('lap-time').textContent = formatTime(lapTime);
+}
+
+// Format time in mm:ss:ms
+function formatTime(time) {
+    const minutes = Math.floor(time / 6000);
+    const seconds = Math.floor((time % 6000) / 100);
+    const milliseconds = time % 100;
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+}
+
+// Calculate average lap time
+function calculateAverageLapTime() {
+    if (lapTimes.length === 0) return 0;
+    const totalLapTime = lapTimes.reduce((acc, time) => acc + time, 0);
+    return totalLapTime / lapTimes.length;
 }
 
 // Animate the vehicle along the track
@@ -55,11 +76,13 @@ function resetTelemetry() {
     lapTime = 0;
     trackPosition = 0;
     lapCounter = 0;
+    lapTimes = [];
 
     document.getElementById('speed').textContent = speed;
     document.getElementById('rpm-progress').style.width = '0%';
     document.getElementById('lap-time').textContent = '00:00:00';
     document.getElementById('lap-counter').textContent = lapCounter;
+    document.getElementById('average-lap-time').textContent = '00:00:00';
 
     // Reset vehicle position
     animateVehicle(0);
