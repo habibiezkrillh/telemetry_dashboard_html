@@ -35,7 +35,30 @@ function updateTelemetry() {
         // Calculate and display average lap time
         const averageLapTime = calculateAverageLapTime();
         document.getElementById('average-lap-time').textContent = formatTime(averageLapTime);
+
+        // Update leaderboard
+        updateLeaderboard();
     }
+}
+
+// Update leaderboard
+function updateLeaderboard() {
+    // Sort lap times in ascending order
+    const sortedLapTimes = [...lapTimes].sort((a, b) => a - b);
+
+    // Get the leaderboard element
+    const leaderboard = document.getElementById('leaderboard');
+
+    // Clear existing leaderboard entries
+    leaderboard.innerHTML = '';
+
+    // Add sorted lap times to the leaderboard
+    sortedLapTimes.forEach((time, index) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item';
+        listItem.textContent = `Lap ${index + 1}: ${formatTime(time)}`;
+        leaderboard.appendChild(listItem);
+    });
 }
 
 // Update lap timer
@@ -83,6 +106,9 @@ function resetTelemetry() {
     document.getElementById('lap-time').textContent = '00:00:00';
     document.getElementById('lap-counter').textContent = lapCounter;
     document.getElementById('average-lap-time').textContent = '00:00:00';
+
+    // Clear leaderboard
+    document.getElementById('leaderboard').innerHTML = '';
 
     // Reset vehicle position
     animateVehicle(0);
