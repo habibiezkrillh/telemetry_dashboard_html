@@ -12,19 +12,24 @@ let lapTimes = [];
 
 // Update data
 function updateTelemetry() {
-    speed = Math.floor(Math.random() * 300); // Random Speed (0-300 km/h)
-    rpm = Math.floor(Math.random() * 10000); // Random RPm (0-10000)
-    trackPosition = (trackPosition + 5) % 100; // Simulated track position (0-100%)
+    // Introduce a random speed variation
+    const speedVariation = Math.random() * 20 - 10; // Random variation between -10 and +10
+    speed = Math.max(0, Math.min(300, speed + speedVariation)); // Ensure speed stays between 0 and 300 km/h
+
+    rpm = Math.floor(Math.random() * 10000); // Random RPM (0-10000)
+    
+    // Adjust track position based on speed
+    trackPosition = (trackPosition + speed / 60) % 100; // Simulated track position (0-100%)
 
     // Update user interface
-    document.getElementById('speed').textContent = speed;
+    document.getElementById('speed').textContent = Math.floor(speed);
     document.getElementById('rpm-progress').style.width = `${(rpm / 10000) * 100}%`;
     
     // Animate the Vehicle on Monza
     animateVehicle(trackPosition / 100);
 
     // Check if a lap is completed
-    if (trackPosition === 0) {
+    if (trackPosition < speed / 60) { // Adjusted condition to check lap completion
         lapCounter++;
         document.getElementById('lap-counter').textContent = lapCounter;
 
